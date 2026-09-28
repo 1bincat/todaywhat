@@ -1,0 +1,71 @@
+.pf { padding: 32px 20px 40px; }
+.pf-title {
+  margin: 0 0 20px;
+  font-size: 22px;
+  letter-spacing: 3px;
+  color: var(--ink);
+}
+
+.pf-card {
+  margin-bottom: 16px;
+  padding: 18px;
+  background: var(--paper);
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(39, 56, 79, 0.08);
+}
+.pf-card small {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.pf-nick { margin: 8px 0 14px; font-size: 22px; color: var(--ink); }
+.pf-empty { margin: 12px 0; color: var(--sub); }
+
+.pf-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.pf-chip {
+  padding: 6px 10px;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg);
+  font-size: 12px;
+  color: var(--ink);
+}
+
+.pf-retake {
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  background: none;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pf-stats { display: flex; gap: 12px; margin-top: 12px; }
+.pf-stats div {
+  flex: 1;
+  padding: 14px;
+  border-radius: 12px;
+  background: var(--bg);
+  text-align: center;
+}
+.pf-stats b { display: block; font-size: 24px; color: var(--ink); }
+.pf-stats span { font-size: 12px; color: var(--sub); }
+
+.pf-map {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 160px;
+  margin-top: 12px;
+  border: 2px dashed var(--line);
+  border-radius: 12px;
+  color: var(--sub);
+  font-size: 13px;
+  text-align: center;
+  padding: 0 16px;
+}

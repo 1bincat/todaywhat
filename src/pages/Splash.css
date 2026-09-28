@@ -1,0 +1,91 @@
+.splash {
+  min-height: 100vh;
+  padding: 64px 28px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.splash-text h1 {
+  margin: 0 0 14px;
+  font-size: 40px;
+  line-height: 1.25;
+  color: var(--ink);
+}
+.splash-text p {
+  margin: 0;
+  color: var(--sub);
+  line-height: 1.6;
+}
+
+.splash-tickets {
+  position: relative;
+  height: 230px;
+}
+.mini-ticket {
+  position: absolute;
+  width: 240px;
+  height: 130px;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(39, 56, 79, 0.15);
+  overflow: hidden;
+}
+.mini-ticket.back {
+  left: 0;
+  top: 10px;
+  transform: rotate(-8deg);
+  background: var(--mustard);
+  padding: 14px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.mini-ticket.front {
+  right: 0;
+  top: 70px;
+  transform: rotate(5deg);
+  background: var(--paper);
+}
+.mini-ticket .band {
+  background: var(--ink);
+  color: #fff;
+  padding: 10px 14px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+}
+.mini-ticket .route {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+}
+.mini-ticket .route small {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--sub);
+}
+.mini-ticket .route b { font-size: 15px; color: var(--ink); }
+.mini-ticket .route span { color: var(--accent); font-size: 20px; }
+
+.btn-primary {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-text {
+  width: 100%;
+  margin-top: 14px;
+  border: none;
+  background: none;
+  color: var(--sub);
+  font-size: 14px;
+  cursor: pointer;
+}

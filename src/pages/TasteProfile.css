@@ -1,0 +1,58 @@
+.profile {
+  min-height: 100vh;
+  padding: 48px 24px 40px;
+  display: flex;
+  flex-direction: column;
+}
+.profile-intro {
+  margin: 0 0 20px;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: var(--sub);
+}
+.profile-empty {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.profile-card {
+  background: var(--paper);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(39, 56, 79, 0.12);
+}
+.profile-band {
+  background: var(--ink);
+  color: #fff;
+  padding: 12px 18px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+.profile-body { padding: 22px 18px 24px; }
+.profile-body small {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: var(--sub);
+}
+.profile-nickname {
+  margin: 6px 0 22px;
+  font-size: 28px;
+  line-height: 1.3;
+  color: var(--ink);
+}
+.profile-traits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.profile-chip {
+  padding: 8px 12px;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg);
+  font-size: 13px;
+  color: var(--ink);
+}
+
+.profile-actions { margin-top: auto; padding-top: 32px; }

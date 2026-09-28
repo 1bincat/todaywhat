@@ -1,0 +1,42 @@
+.ticket {
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  background: var(--paper);
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+.ticket-main { flex: 1; padding: 18px; }
+.ticket-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--accent);
+  font-weight: 700;
+}
+.ticket-title { margin: 8px 0 6px; font-size: 20px; }
+.ticket-place { margin: 0 0 14px; color: var(--sub); font-size: 13px; }
+.ticket-meta { display: flex; gap: 20px; }
+.ticket small { display: block; font-size: 10px; letter-spacing: 1px; color: var(--sub); }
+.ticket b { font-size: 14px; }
+
+.ticket-stub {
+  position: relative;
+  width: 96px;
+  padding: 18px 12px;
+  border-left: 2px dashed var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ticket-stub::before,
+.ticket-stub::after {
+  content: '';
+  position: absolute;
+  left: -11px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--bg);
+}
+.ticket-stub::before { top: -10px; }
+.ticket-stub::after { bottom: -10px; }

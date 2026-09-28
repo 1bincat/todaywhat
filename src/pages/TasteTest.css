@@ -1,0 +1,77 @@
+.taste {
+  min-height: 100vh;
+  padding: 28px 24px 40px;
+}
+.taste-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.taste-back {
+  border: none;
+  background: none;
+  font-size: 22px;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 0;
+}
+.taste-count {
+  font-size: 13px;
+  letter-spacing: 1px;
+  color: var(--sub);
+}
+.taste-bar {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--line);
+  overflow: hidden;
+}
+.taste-bar-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 999px;
+  transition: width 0.3s;
+}
+
+.taste-topic {
+  margin: 40px 0 6px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.taste-title {
+  margin: 0 0 28px;
+  font-size: 26px;
+  color: var(--ink);
+}
+
+.taste-options {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.taste-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 24px 20px;
+  border: 2px solid var(--line);
+  border-radius: 16px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 17px;
+  line-height: 1.5;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.1s, border-color 0.15s;
+}
+.taste-card:hover { border-color: var(--accent); }
+.taste-card:active { transform: scale(0.98); }
+.taste-card.selected {
+  border-color: var(--ink);
+  background: #fff;
+}
+.taste-emoji { font-size: 28px; }
