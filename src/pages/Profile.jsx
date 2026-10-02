@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import { buildProfile } from '../data/tasteResult';
 import './Profile.css';
 
@@ -12,12 +13,25 @@ function loadAnswers() {
 
 export default function Profile() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const answers = loadAnswers();
   const profile = answers.length ? buildProfile(answers) : null;
 
   return (
     <div className="pf">
-      <h1 className="pf-title">MY PASSPORT</h1>
+      <div className="pf-head">
+        <h1 className="pf-title">MY PASSPORT</h1>
+        <div className="pf-account">
+          <span className="pf-user">{user.nickname}님</span>
+          <button
+            className="pf-settings"
+            onClick={() => navigate('/settings')}
+            aria-label="계정 설정"
+          >
+            ⚙
+          </button>
+        </div>
+      </div>
 
       <section className="pf-card">
         <small>MY TASTE</small>

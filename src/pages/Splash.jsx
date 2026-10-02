@@ -1,8 +1,11 @@
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import './Splash.css';
 
 export default function Splash() {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const hasTaste = !!sessionStorage.getItem('tasteAnswers');
 
   return (
     <div className="splash">
@@ -26,12 +29,17 @@ export default function Splash() {
       </div>
 
       <div className="splash-actions">
-        <button className="btn-primary" onClick={() => navigate('/taste-test')}>
-          시작하기 →
+        <button
+          className="btn-primary"
+          onClick={() => navigate(hasTaste ? '/home' : '/taste-test')}
+        >
+          {hasTaste ? '이어서 하기 →' : '시작하기 →'}
         </button>
-        <button className="btn-text" onClick={() => navigate('/home')}>
-          로그인하기
-        </button>
+        {!user && (
+          <button className="btn-text" onClick={() => navigate('/login')}>
+            로그인하기
+          </button>
+        )}
       </div>
     </div>
   );

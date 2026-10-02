@@ -1,3 +1,5 @@
+import Login from './pages/Login';
+import ProtectedRoute from './components/ProtectedRoute';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import TabLayout from './components/TabLayout';
 import Splash from './pages/Splash';
@@ -9,6 +11,7 @@ import Result from './pages/Result';
 import TicketDetail from './pages/TicketDetail';
 import MyJourney from './pages/MyJourney';
 import Profile from './pages/Profile';
+import Settings from './pages/Settings';
 
 export default function App() {
   return (
@@ -16,6 +19,7 @@ export default function App() {
       <Routes>
         {/* 탭이 없는 화면 */}
         <Route path="/" element={<Splash />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/taste-test" element={<TasteTest />} />
         <Route path="/taste-profile" element={<TasteProfile />} />
         <Route path="/conditions" element={<Conditions />} />
@@ -25,8 +29,18 @@ export default function App() {
         {/* 하단 탭이 있는 화면 */}
         <Route element={<TabLayout />}>
           <Route path="/home" element={<Home />} />
-          <Route path="/journey" element={<MyJourney />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route
+            path="/journey"
+            element={<ProtectedRoute><MyJourney /></ProtectedRoute>}
+          />
+          <Route
+            path="/profile"
+            element={<ProtectedRoute><Profile /></ProtectedRoute>}
+          />
+          <Route
+            path="/settings"
+            element={<ProtectedRoute><Settings /></ProtectedRoute>}
+          />
         </Route>
       </Routes>
     </BrowserRouter>

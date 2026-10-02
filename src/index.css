@@ -1,18 +1,20 @@
 :root {
-  --bg: #FBF3E6;
-  --paper: #FFFDF7;
+  --bg: #F1F8FD;
+  --sky: linear-gradient(180deg, #DCEEFA 0%, #F1F8FD 45%, #FCF9F3 100%);
+  --paper: #FDFEFF;
   --ink: #27384F;
-  --sub: #8B8676;
-  --accent: #EE7B5B;
-  --mustard: #F0C36A;
-  --line: #E3D8C3;
+  --sub: #6B7A8A;
+  --accent: #F2994A;
+  --mustard: #BFDDF0;
+  --line: #D6E8F4;
+  --main: #3B6E9E;
 }
 
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  background: #e9e4d8;
+  background: #E6F1F9;
   color: var(--ink);
   font-family: system-ui, -apple-system, 'Malgun Gothic', sans-serif;
 }
@@ -21,5 +23,5 @@ body {
   max-width: 430px;
   min-height: 100vh;
   margin: 0 auto;
-  background: var(--bg);
+  background: var(--sky);
 }

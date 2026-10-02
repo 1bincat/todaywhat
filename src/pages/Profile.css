@@ -69,3 +69,35 @@
   text-align: center;
   padding: 0 16px;
 }
+.pf-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pf-account {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pf-user {
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  color: #3b6e9e;
+  font-weight: 700;
+}
+
+.pf-settings {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: #bfddf0;
+  color: #27384f;
+  font-size: 20px;
+  cursor: pointer;
+}
