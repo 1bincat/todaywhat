@@ -1,0 +1,217 @@
+/* 백그라운드 블러 & 오버레이 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.25s ease-out;
+}
+
+/* 모달 컨테이너 카드 */
+.modal-container {
+  background: #ffffff;
+  width: 90%;
+  max-width: 380px;
+  border-radius: 24px;
+  padding: 24px 20px 28px 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  position: relative;
+  box-sizing: border-box;
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.step-badge {
+  font-size: 12px;
+  font-weight: 700;
+  color: #3b82f6;
+  background-color: #eff6ff;
+  padding: 4px 10px;
+  border-radius: 12px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+}
+
+.step-content h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 6px 0;
+}
+
+.step-desc {
+  font-size: 13px;
+  color: #64748b;
+  margin: 0 0 20px 0;
+}
+
+/* 카드 및 옵션 버튼들 */
+.option-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.card-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px 12px;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.card-btn.compact {
+  padding: 16px 10px;
+}
+
+.card-btn .icon {
+  font-size: 28px;
+}
+
+.card-btn .label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.card-btn:hover, .card-btn.active {
+  border-color: #3b82f6;
+  background: #f0f6ff;
+}
+
+.option-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.list-btn {
+  width: 100%;
+  padding: 14px 16px;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #334155;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.list-btn:hover, .list-btn.active {
+  border-color: #3b82f6;
+  background: #f0f6ff;
+  color: #1d4ed8;
+}
+
+/* 하단 내비게이션 버튼 */
+.nav-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.prev-btn {
+  flex: 1;
+  padding: 12px;
+  background: #f1f5f9;
+  border: none;
+  border-radius: 12px;
+  color: #64748b;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.next-btn, .submit-btn {
+  flex: 2;
+  padding: 12px;
+  background: #3b82f6;
+  border: none;
+  border-radius: 12px;
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.next-btn:disabled, .submit-btn:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+}
+
+.submit-btn {
+  background: #2563eb;
+}
+
+/* 애니메이션 */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+/* 직접 입력 인풋 박스 스타일 */
+.custom-input-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background-color: #f1f5f9;
+  border-radius: 12px;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.custom-input {
+  width: 80px;
+  padding: 8px 12px;
+  font-size: 15px;
+  font-weight: 600;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  outline: none;
+  text-align: center;
+}
+
+.custom-input:focus {
+  border-color: #3b82f6;
+  background-color: #ffffff;
+}
+
+.custom-unit {
+  font-size: 14px;
+  font-weight: 600;
+  color: #334155;
+}
