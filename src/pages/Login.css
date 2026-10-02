@@ -1,0 +1,130 @@
+.login-page {
+  min-height: 100vh;
+  background: #EAF4FBe;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 20px;
+}
+
+.login-back {
+  align-self: flex-start;
+  max-width: 420px;
+  background: none;
+  border: none;
+  color: #3b6e9e;
+  font-size: 14px;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+/* 티켓 카드 */
+.login-ticket {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(59, 110, 158, 0.15);
+  overflow: hidden;
+  position: relative;
+}
+
+.login-band {
+  background: #3b6e9e;
+  color: #fff;
+  font-size: 12px;
+  letter-spacing: 2px;
+  padding: 12px 20px;
+  font-weight: 700;
+}
+
+.login-body {
+  padding: 24px 24px 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-body h2 {
+  margin: 0;
+  font-size: 26px;
+  color: #27384f;
+}
+
+.login-sub {
+  margin: 6px 0 20px;
+  font-size: 14px;
+  color: #6b7a8a;
+}
+
+.login-body label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #3b6e9e;
+  margin: 12px 0 6px;
+}
+
+.login-body input {
+  padding: 13px 14px;
+  border: 1.5px solid #bfddf0;
+  border-radius: 10px;
+  font-size: 15px;
+  background: #fbfdff;
+  color: #27384f;
+  outline: none;
+}
+
+.login-body input:focus {
+  border-color: #f2994a;
+}
+
+.login-error {
+  margin: 12px 0 0;
+  font-size: 13px;
+  color: #d9534f;
+}
+
+.login-submit {
+  margin-top: 20px;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: #f2994a;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.login-submit:hover {
+  filter: brightness(1.05);
+}
+
+/* 티켓 절취선 */
+.login-divider {
+  margin: 20px 16px 0;
+  border-top: 2px dashed #bfddf0;
+}
+
+.login-divider::before,
+.login-divider::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #EAF4FBe;
+  border-radius: 50%;
+  margin-top: -11px;
+}
+.login-divider::before { left: -10px; }
+.login-divider::after { right: -10px; }
+
+.login-switch {
+  width: 100%;
+  padding: 16px;
+  background: none;
+  border: none;
+  color: #3b6e9e;
+  font-size: 14px;
+  cursor: pointer;
+}

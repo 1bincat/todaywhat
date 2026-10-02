@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import tasteQuestions from '../data/tasteQuestions';
+import { saveTaste } from '../api/taste';
 import './TasteTest.css';
 
 export default function TasteTest() {
@@ -15,6 +16,7 @@ export default function TasteTest() {
     setAnswers(next);
     if (index === total - 1) {
       sessionStorage.setItem('tasteAnswers', JSON.stringify(next));
+      saveTaste(next);
       navigate('/taste-profile');
     } else {
       setIndex(index + 1);
