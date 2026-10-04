@@ -7,10 +7,8 @@ export default function Home() {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // 모달 입력 완료 시 추천받는 페이지('/result')로 이동!
   const handleFlowComplete = (selectedConditions) => {
     setIsModalOpen(false);
-    // 선택한 조건들을 state 객체에 실어서 결과 페이지로 라우팅 이동
     navigate('/result', { state: { conditions: selectedConditions } });
   };
 
@@ -37,6 +35,7 @@ export default function Home() {
         <p>아직 저장한 티켓이 없어요. 첫 여정을 떠나볼까요?</p>
       </section>
 
+<<<<<<< HEAD
       {/* 모달 팝업 */}
       {isModalOpen && (
         <FlowStep
@@ -44,6 +43,13 @@ export default function Home() {
           onCancel={() => setIsModalOpen(false)}
         />
       )}
+=======
+      <FlowStep
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={handleFlowComplete}
+      />
+>>>>>>> master
     </div>
   );
 }
