@@ -8,11 +8,19 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
   const [location, setLocation] = useState('');
   const [isLocLoading, setIsLocLoading] = useState(false);
 
-  const [budget, setBudget] = useState('free');
+  const [availableTime, setAvailableTime] = useState('1_2h');
 
+  const [budget, setBudget] = useState('free');
   const [transport, setTransport] = useState('public');
   const [condition, setCondition] = useState('normal'); 
   const [travelStyle, setTravelStyle] = useState('sightseeing');
+
+  const availableTimeOptions = [
+    { label: '30분~1시간', value: 'under_1h' },
+    { label: '1~2시간', value: '1_2h' },
+    { label: '3~4시간', value: '3_4h' },
+    { label: '5시간 이상', value: 'over_5h' },
+  ];
 
   const budgetOptions = {
     daily: [
@@ -49,7 +57,6 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
     setLocation('');
   };
 
-  // 💡 카카오 지도 SDK 동적 로더 및 주소 변환
   const loadKakaoSDKAndGeocode = (longitude, latitude) => {
     const KAKAO_APP_KEY = '957ecadf1f58433fcc1b049d88ebf46a';
 
@@ -72,13 +79,11 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
       });
     };
 
-    // 1. 이미 스크립트가 완벽히 로드되어 있는 경우
     if (window.kakao && window.kakao.maps && window.kakao.maps.services) {
       runGeocoding();
       return;
     }
 
-    // 2. 스크립트 태그가 없는 경우 동적 생성하여 로드
     const scriptId = 'kakao-map-script';
     let script = document.getElementById(scriptId);
 
@@ -95,7 +100,7 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
     };
 
     script.onerror = () => {
-      alert('카카오 지도 스크립트를 불러오는 데 실패했습니다. Kakao Developers의 도메인 설정을 확인해 주세요.');
+      alert('카카오 지도 스크립트를 불러오는 데 실패했습니다.');
       setIsLocLoading(false);
     };
   };
@@ -111,7 +116,6 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
-        // 동적 로더 함수 호출
         loadKakaoSDKAndGeocode(longitude, latitude);
       },
       (error) => {
@@ -129,7 +133,7 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
       location,
       budget,
       transport,
-      ...(type === 'daily' ? { condition } : { travelStyle }),
+      ...(type === 'daily' ? { availableTime, condition } : { travelStyle }),
     };
     if (onSubmit) {
       onSubmit(formData);
@@ -145,7 +149,7 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
     ? '예: 제주시 애월읍, 부산 광안리 등'
     : '예: 서울시 마포구 연남동';
 
-  const budgetLabel = isTravel ? '3. 예산 범위 (하루 기준)' : '3. 예산 범위';
+  const budgetLabel = isTravel ? '4. 예산 범위 (하루 기준)' : '4. 예산 범위';
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -202,7 +206,26 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
             </div>
           </div>
 
-          {/* 3. 예산 범위 선택 */}
+          {/* 💡 3. 여유 시간 선택 (위치 바로 아래 / 일상일 때만 표시) */}
+          {!isTravel && (
+            <div className="flow-section">
+              <label className="flow-label">3. 여유 시간</label>
+              <div className="grid-group">
+                {availableTimeOptions.map((item) => (
+                  <button
+                    key={item.value}
+                    type="button"
+                    className={availableTime === item.value ? 'btn active' : 'btn'}
+                    onClick={() => setAvailableTime(item.value)}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* 4. 예산 범위 선택 */}
           <div className="flow-section">
             <label className="flow-label">{budgetLabel}</label>
             <div className="grid-group">
@@ -219,9 +242,9 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
             </div>
           </div>
 
-          {/* 4. 이동 수단 선택 */}
+          {/* 5. 이동 수단 선택 */}
           <div className="flow-section">
-            <label className="flow-label">4. 이동 수단</label>
+            <label className="flow-label">5. 이동 수단</label>
             <div className="grid-group">
               {[
                 { label: '🚶 도보', value: 'walk' },
@@ -240,10 +263,10 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
             </div>
           </div>
 
-          {/* 5. 동적 5번 조건 (일상: 현재 컨디션 / 여행: 여행 스타일) */}
+          {/* 6. 동적 조건 (일상: 현재 컨디션 / 여행: 여행 스타일) */}
           <div className="flow-section">
             <label className="flow-label">
-              {isTravel ? '5. 여행 스타일' : '5. 현재 컨디션'}
+              {isTravel ? '5. 여행 스타일' : '6. 현재 컨디션'}
             </label>
             <div className="grid-group">
               {isTravel

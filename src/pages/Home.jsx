@@ -35,21 +35,11 @@ export default function Home() {
         <p>아직 저장한 티켓이 없어요. 첫 여정을 떠나볼까요?</p>
       </section>
 
-<<<<<<< HEAD
-      {/* 모달 팝업 */}
-      {isModalOpen && (
-        <FlowStep
-          onComplete={handleFlowComplete}
-          onCancel={() => setIsModalOpen(false)}
-        />
-      )}
-=======
       <FlowStep
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onSubmit={handleFlowComplete}
       />
->>>>>>> master
     </div>
   );
 }
