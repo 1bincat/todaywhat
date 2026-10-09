@@ -6,6 +6,8 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
 
   const [type, setType] = useState('daily');
   const [location, setLocation] = useState('');
+  const [destination, setDestination] = useState('');
+  const [includeStopovers, setIncludeStopovers] = useState(true);
   const [isLocLoading, setIsLocLoading] = useState(false);
 
   const [availableTime, setAvailableTime] = useState('1_2h');
@@ -55,6 +57,7 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
     setType(selectedType);
     setBudget(budgetOptions[selectedType][0].value);
     setLocation('');
+    setDestination('');
   };
 
   const loadKakaoSDKAndGeocode = (longitude, latitude) => {
@@ -131,6 +134,7 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
     const formData = {
       type,
       location,
+      ...(type === 'travel' ? { destination, includeStopovers } : {}),
       budget,
       transport,
       ...(type === 'daily' ? { availableTime, condition } : { travelStyle }),
@@ -144,9 +148,9 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
   };
 
   const isTravel = type === 'travel';
-  const locationLabel = isTravel ? '2. 여행하고 싶은 곳' : '2. 현재 위치';
+  const locationLabel = isTravel ? '2. 출발지 → 도착지' : '2. 현재 위치';
   const locationPlaceholder = isTravel
-    ? '예: 제주시 애월읍, 부산 광안리 등'
+    ? '출발지 (예: 서울역)'
     : '예: 서울시 마포구 연남동';
 
   const budgetLabel = isTravel ? '4. 예산 범위 (하루 기준)' : '4. 예산 범위';
@@ -192,7 +196,21 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 className="flow-input"
+                style={isTravel ? { minWidth: 0 } : undefined}
               />
+              {isTravel && (
+                <>
+                  <span style={{ alignSelf: 'center', color: '#64748b' }}>→</span>
+                  <input
+                    type="text"
+                    placeholder="도착지 (예: 제주 애월)"
+                    value={destination}
+                    onChange={(e) => setDestination(e.target.value)}
+                    className="flow-input"
+                    style={{ minWidth: 0 }}
+                  />
+                </>
+              )}
               {!isTravel && (
                 <button
                   type="button"
@@ -204,6 +222,26 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
                 </button>
               )}
             </div>
+            {isTravel && (
+              <label
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  marginTop: '10px',
+                  fontSize: '14px',
+                  color: '#334155',
+                  cursor: 'pointer',
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={includeStopovers}
+                  onChange={(e) => setIncludeStopovers(e.target.checked)}
+                />
+                가는 길에 들를 경유지도 추천받기
+              </label>
+            )}
           </div>
 
           {/* 💡 3. 여유 시간 선택 (위치 바로 아래 / 일상일 때만 표시) */}
