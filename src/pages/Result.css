@@ -1,0 +1,178 @@
+.result-page {
+  --main: #3B6E9E;
+  --accent: #F2994A;
+  --sub: #BFDDF0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 24px;
+}
+.result-center {
+  justify-content: center;
+  gap: 16px;
+}
+
+/* 헤더 */
+.result-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  box-sizing: border-box;
+}
+.result-header h1 {
+  margin: 0;
+  font-size: 17px;
+}
+.result-count {
+  min-width: 40px;
+  text-align: right;
+  font-size: 13px;
+  opacity: 0.6;
+}
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--main);
+}
+.icon-btn:disabled { opacity: 0.25; cursor: default; }
+
+/* 스와이프 */
+.swipe {
+  width: 100%;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.swipe::-webkit-scrollbar { display: none; }
+.slide {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+  display: flex;
+  justify-content: center;
+  padding: 36px 0 24px;
+  box-sizing: border-box;
+}
+
+/* 티켓 출력 애니메이션: 위에서 프린트되어 나오는 느낌 */
+.print { opacity: 0; }
+.print.show {
+  animation: print 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+@keyframes print {
+  0% {
+    opacity: 1;
+    clip-path: inset(-30px -30px 100% -30px);
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    clip-path: inset(-30px);
+    transform: translateY(0);
+  }
+}
+
+/* 페이지 점 */
+.pager {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.dots { display: flex; gap: 8px; }
+.dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--sub);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.dot.on {
+  width: 22px;
+  border-radius: 4px;
+  background: var(--accent);
+}
+
+/* 하단 버튼 */
+.actions {
+  display: flex;
+  gap: 10px;
+  width: min(86vw, 320px);
+}
+.actions button {
+  flex: 1;
+  padding: 13px 0;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-main {
+  border: none;
+  background: var(--main);
+  color: #fff;
+}
+.btn-sub {
+  border: 1.5px solid var(--main);
+  background: transparent;
+  color: var(--main);
+}
+
+/* 로딩 화면: 비행기가 날아가는 애니메이션 */
+.loading {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+.sky {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  height: 120px;
+  overflow: hidden;
+}
+.plane {
+  position: absolute;
+  top: 44px;
+  font-size: 40px;
+  animation: fly 2.4s ease-in-out infinite;
+}
+@keyframes fly {
+  0%   { left: -15%; transform: translateY(10px) rotate(-6deg); }
+  50%  { transform: translateY(-10px) rotate(0deg); }
+  100% { left: 105%; transform: translateY(10px) rotate(-6deg); }
+}
+.cloud {
+  position: absolute;
+  font-size: 28px;
+  opacity: 0.55;
+  animation: drift 6s linear infinite;
+}
+.c1 { top: 8px;  animation-duration: 7s; }
+.c2 { top: 70px; animation-duration: 5s; animation-delay: -2s; }
+.c3 { top: 30px; animation-duration: 9s; animation-delay: -4s; }
+@keyframes drift {
+  from { left: 110%; }
+  to   { left: -20%; }
+}
+.loading-text {
+  margin: 0;
+  font-size: 15px;
+  opacity: 0.7;
+}

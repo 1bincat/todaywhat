@@ -4,6 +4,7 @@ import cors from "cors";
 import authRouter from "./routes/auth.js";
 import tasteRouter from "./routes/taste.js";
 import stopoversRouter from "./routes/stopovers.js";
+import recommendRouter from "./routes/recommend.js";
 
 const app = express();
 
@@ -17,3 +18,4 @@ app.use("/api/stopovers", stopoversRouter);
 app.listen(process.env.PORT, () => {
   console.log(`server on http://localhost:${process.env.PORT}`);
 });
+app.use("/api/recommend", recommendRouter);
