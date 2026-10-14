@@ -6,11 +6,11 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
 
   const [type, setType] = useState('daily');
   const [location, setLocation] = useState('');
-  const [destination, setDestination] = useState('');
-  const [includeStopovers, setIncludeStopovers] = useState(true);
   const [isLocLoading, setIsLocLoading] = useState(false);
 
   const [availableTime, setAvailableTime] = useState('1_2h');
+
+  const [companion, setCompanion] = useState('solo');
 
   const [budget, setBudget] = useState('free');
   const [transport, setTransport] = useState('public');
@@ -18,10 +18,17 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
   const [travelStyle, setTravelStyle] = useState('sightseeing');
 
   const availableTimeOptions = [
-    { label: '30분~1시간', value: 'under_1h' },
-    { label: '1~2시간', value: '1_2h' },
-    { label: '3~4시간', value: '3_4h' },
-    { label: '5시간 이상', value: 'over_5h' },
+    { label: '⚡ 30분~1시간 (짧게)', value: 'under_1h' },
+    { label: '☕ 1~2시간 (적당히)', value: '1_2h' },
+    { label: '🎬 2~4시간 (넉넉히)', value: '2_4h' },
+    { label: '🌙 4시간 이상 (하루종일)', value: 'over_4h' },
+  ];
+
+  const companionOptions = [
+    { label: '🙋 혼자', value: 'solo' },
+    { label: '👫 친구', value: 'friend' },
+    { label: '👩‍❤️‍👨 연인', value: 'couple' },
+    { label: '👨‍👩‍👧‍👦 가족', value: 'family' },
   ];
 
   const budgetOptions = {
@@ -36,6 +43,21 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
       { label: '10만원 이하', value: '100k_under' },
       { label: '15만원 이하', value: '150k_under' },
       { label: '20만원 이상', value: '200k_over' },
+    ],
+  };
+
+  const transportOptions = {
+    daily: [
+      { label: '🚶 도보', value: 'walk' },
+      { label: '🚌 대중교통', value: 'public' },
+      { label: '🚕 택시', value: 'taxi' },
+      { label: '🚗 자가용', value: 'car' },
+    ],
+    travel: [
+      { label: '🚗 자가용', value: 'car' },
+      { label: '🚌 대중교통', value: 'public' },
+      { label: '🚆 기차', value: 'train' },
+      { label: '✈️ 비행기', value: 'airplane' },
     ],
   };
 
@@ -56,8 +78,8 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
   const handleTypeChange = (selectedType) => {
     setType(selectedType);
     setBudget(budgetOptions[selectedType][0].value);
+    setTransport(transportOptions[selectedType][0].value);
     setLocation('');
-    setDestination('');
   };
 
   const loadKakaoSDKAndGeocode = (longitude, latitude) => {
@@ -131,29 +153,52 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = {
-      type,
-      location,
-      ...(type === 'travel' ? { destination, includeStopovers } : {}),
-      budget,
-      transport,
-      ...(type === 'daily' ? { availableTime, condition } : { travelStyle }),
-    };
-    if (onSubmit) {
-      onSubmit(formData);
+
+    if (!location.trim()) {
+      alert('위치를 입력해 주세요!');
+      return;
     }
-    if (onClose) {
-      onClose();
+
+    const sendData = (lat = null, lng = null) => {
+      const formData = {
+        type,
+        location,
+        lat,
+        lng,
+        companion,
+        budget,
+        transport,
+        ...(type === 'daily' ? { availableTime, condition } : { travelStyle }),
+      };
+
+      if (onSubmit) onSubmit(formData);
+      if (onClose) onClose();
+    };
+
+    if (window.kakao && window.kakao.maps && window.kakao.maps.services) {
+      const geocoder = new window.kakao.maps.services.Geocoder();
+      geocoder.addressSearch(location, (result, status) => {
+        if (status === window.kakao.maps.services.Status.OK && result[0]) {
+          sendData(result[0].y, result[0].x);
+        } else {
+          sendData();
+        }
+      });
+    } else {
+      sendData();
     }
   };
 
   const isTravel = type === 'travel';
-  const locationLabel = isTravel ? '2. 출발지 → 도착지' : '2. 현재 위치';
+  
+  const locationLabel = '2. 현재 위치';
   const locationPlaceholder = isTravel
-    ? '출발지 (예: 서울역)'
+    ? '예: 서울시 마포구, 대구 수성구 등'
     : '예: 서울시 마포구 연남동';
 
-  const budgetLabel = isTravel ? '4. 예산 범위 (하루 기준)' : '4. 예산 범위';
+  const budgetLabel = isTravel ? '4. 예산 범위 (하루 기준)' : '5. 예산 범위';
+  const transportLabelNumber = isTravel ? '5.' : '6.';
+  const lastSectionLabelNumber = isTravel ? '6.' : '7.';
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -186,7 +231,7 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
             </div>
           </div>
 
-          {/* 2. 동적 위치 입력 */}
+          {/* 2. 현재 위치 입력 */}
           <div className="flow-section">
             <label className="flow-label">{locationLabel}</label>
             <div className="location-input-group">
@@ -196,21 +241,7 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 className="flow-input"
-                style={isTravel ? { minWidth: 0 } : undefined}
               />
-              {isTravel && (
-                <>
-                  <span style={{ alignSelf: 'center', color: '#64748b' }}>→</span>
-                  <input
-                    type="text"
-                    placeholder="도착지 (예: 제주 애월)"
-                    value={destination}
-                    onChange={(e) => setDestination(e.target.value)}
-                    className="flow-input"
-                    style={{ minWidth: 0 }}
-                  />
-                </>
-              )}
               {!isTravel && (
                 <button
                   type="button"
@@ -222,32 +253,29 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
                 </button>
               )}
             </div>
-            {isTravel && (
-              <label
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  marginTop: '10px',
-                  fontSize: '14px',
-                  color: '#334155',
-                  cursor: 'pointer',
-                }}
-              >
-                <input
-                  type="checkbox"
-                  checked={includeStopovers}
-                  onChange={(e) => setIncludeStopovers(e.target.checked)}
-                />
-                가는 길에 들를 경유지도 추천받기
-              </label>
-            )}
           </div>
 
-          {/* 💡 3. 여유 시간 선택 (위치 바로 아래 / 일상일 때만 표시) */}
+          {/* 3. 동행 유무 선택 */}
+          <div className="flow-section">
+            <label className="flow-label">3. 동행 유무</label>
+            <div className="grid-group">
+              {companionOptions.map((item) => (
+                <button
+                  key={item.value}
+                  type="button"
+                  className={companion === item.value ? 'btn active' : 'btn'}
+                  onClick={() => setCompanion(item.value)}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* 4. 소요 가능 시간 (일상일 때만 표시) */}
           {!isTravel && (
             <div className="flow-section">
-              <label className="flow-label">3. 여유 시간</label>
+              <label className="flow-label">4. 소요 가능 시간</label>
               <div className="grid-group">
                 {availableTimeOptions.map((item) => (
                   <button
@@ -263,7 +291,7 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
             </div>
           )}
 
-          {/* 4. 예산 범위 선택 */}
+          {/* 5. 예산 범위 선택 */}
           <div className="flow-section">
             <label className="flow-label">{budgetLabel}</label>
             <div className="grid-group">
@@ -280,15 +308,11 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
             </div>
           </div>
 
-          {/* 5. 이동 수단 선택 */}
+          {/* 6. 이동 수단 선택 */}
           <div className="flow-section">
-            <label className="flow-label">5. 이동 수단</label>
+            <label className="flow-label">{transportLabelNumber} 이동 수단</label>
             <div className="grid-group">
-              {[
-                { label: '🚶 도보', value: 'walk' },
-                { label: '🚌 대중교통', value: 'public' },
-                { label: '🚗 자가용 / 택시', value: 'car' },
-              ].map((item) => (
+              {transportOptions[type].map((item) => (
                 <button
                   key={item.value}
                   type="button"
@@ -301,10 +325,10 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
             </div>
           </div>
 
-          {/* 6. 동적 조건 (일상: 현재 컨디션 / 여행: 여행 스타일) */}
+          {/* 7. 동적 조건 (일상: 현재 컨디션 / 여행: 여행 스타일) */}
           <div className="flow-section">
             <label className="flow-label">
-              {isTravel ? '5. 여행 스타일' : '6. 현재 컨디션'}
+              {isTravel ? `${lastSectionLabelNumber} 여행 스타일` : `${lastSectionLabelNumber} 현재 컨디션`}
             </label>
             <div className="grid-group">
               {isTravel
