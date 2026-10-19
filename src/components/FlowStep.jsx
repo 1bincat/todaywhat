@@ -16,6 +16,7 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
   const [transport, setTransport] = useState('public');
   const [condition, setCondition] = useState('normal'); 
   const [travelStyle, setTravelStyle] = useState('sightseeing');
+  const [includeStopovers, setIncludeStopovers] = useState(false);
 
   const availableTimeOptions = [
     { label: '⚡ 30분~1시간 (짧게)', value: 'under_1h' },
@@ -80,6 +81,7 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
     setBudget(budgetOptions[selectedType][0].value);
     setTransport(transportOptions[selectedType][0].value);
     setLocation('');
+    setIncludeStopovers(false);
   };
 
   const loadKakaoSDKAndGeocode = (longitude, latitude) => {
@@ -166,9 +168,10 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
         lat,
         lng,
         companion,
+        availableTime,
         budget,
         transport,
-        ...(type === 'daily' ? { availableTime, condition } : { travelStyle }),
+        ...(type === 'daily' ? { condition } : { travelStyle, includeStopovers }),
       };
 
       if (onSubmit) onSubmit(formData);
@@ -191,14 +194,14 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
 
   const isTravel = type === 'travel';
   
-  const locationLabel = '2. 현재 위치';
+  const locationLabel = '2. 출발지';
   const locationPlaceholder = isTravel
     ? '예: 서울시 마포구, 대구 수성구 등'
     : '예: 서울시 마포구 연남동';
 
-  const budgetLabel = isTravel ? '4. 예산 범위 (하루 기준)' : '5. 예산 범위';
-  const transportLabelNumber = isTravel ? '5.' : '6.';
-  const lastSectionLabelNumber = isTravel ? '6.' : '7.';
+  const budgetLabel = isTravel ? '5. 예산 범위 (하루 기준)' : '5. 예산 범위';
+  const transportLabelNumber = '6.';
+  const lastSectionLabelNumber = '7.';
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -253,6 +256,26 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
                 </button>
               )}
             </div>
+            {isTravel && (
+              <label
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  marginTop: '10px',
+                  fontSize: '14px',
+                  color: '#334155',
+                  cursor: 'pointer',
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={includeStopovers}
+                  onChange={(e) => setIncludeStopovers(e.target.checked)}
+                />
+                경유지 추천받기 (여행지로 가는 길에 들를 곳도 함께)
+              </label>
+            )}
           </div>
 
           {/* 3. 동행 유무 선택 */}
@@ -272,24 +295,22 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
             </div>
           </div>
 
-          {/* 4. 소요 가능 시간 (일상일 때만 표시) */}
-          {!isTravel && (
-            <div className="flow-section">
-              <label className="flow-label">4. 소요 가능 시간</label>
-              <div className="grid-group">
-                {availableTimeOptions.map((item) => (
-                  <button
-                    key={item.value}
-                    type="button"
-                    className={availableTime === item.value ? 'btn active' : 'btn'}
-                    onClick={() => setAvailableTime(item.value)}
-                  >
-                    {item.label}
-                  </button>
-                ))}
-              </div>
+          {/* 4. 소요 가능 시간 (일상 / 여행 공통 표시) */}
+          <div className="flow-section">
+            <label className="flow-label">4. 소요 가능 시간</label>
+            <div className="grid-group">
+              {availableTimeOptions.map((item) => (
+                <button
+                  key={item.value}
+                  type="button"
+                  className={availableTime === item.value ? 'btn active' : 'btn'}
+                  onClick={() => setAvailableTime(item.value)}
+                >
+                  {item.label}
+                </button>
+              ))}
             </div>
-          )}
+          </div>
 
           {/* 5. 예산 범위 선택 */}
           <div className="flow-section">
