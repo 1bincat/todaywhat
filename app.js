@@ -5,6 +5,7 @@ import authRouter from "./routes/auth.js";
 import tasteRouter from "./routes/taste.js";
 import stopoversRouter from "./routes/stopovers.js";
 import recommendRouter from "./routes/recommend.js";
+import aroundRouter from "./routes/around.js";
 
 const app = express();
 
@@ -19,3 +20,4 @@ app.listen(process.env.PORT, () => {
   console.log(`server on http://localhost:${process.env.PORT}`);
 });
 app.use("/api/recommend", recommendRouter);
+app.use("/api/around", aroundRouter);

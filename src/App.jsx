@@ -12,6 +12,7 @@ import TicketDetail from './pages/TicketDetail';
 import MyJourney from './pages/MyJourney';
 import Profile from './pages/Profile';
 import Settings from './pages/Settings';
+import Around from './pages/Around';
 
 export default function App() {
   return (
@@ -25,6 +26,8 @@ export default function App() {
         <Route path="/conditions" element={<Conditions />} />
         <Route path="/result" element={<Result />} />
         <Route path="/ticket/:id" element={<TicketDetail />} />
+        <Route path="/result" element={<Result />} />
+        <Route path="/around" element={<Around />} />
 
         {/* 하단 탭이 있는 화면 */}
         <Route element={<TabLayout />}>

@@ -2,27 +2,35 @@ import React, { useState } from 'react';
 import './FlowStep.css';
 
 const FlowStep = ({ isOpen, onClose, onSubmit }) => {
-  if (!isOpen) return null;
-
   const [type, setType] = useState('daily');
   const [location, setLocation] = useState('');
   const [isLocLoading, setIsLocLoading] = useState(false);
 
   const [availableTime, setAvailableTime] = useState('1_2h');
+  const [travelDuration, setTravelDuration] = useState('day');
 
   const [companion, setCompanion] = useState('solo');
 
   const [budget, setBudget] = useState('free');
   const [transport, setTransport] = useState('public');
-  const [condition, setCondition] = useState('normal'); 
+  const [condition, setCondition] = useState('normal');
   const [travelStyle, setTravelStyle] = useState('sightseeing');
   const [includeStopovers, setIncludeStopovers] = useState(false);
+
+  if (!isOpen) return null;
 
   const availableTimeOptions = [
     { label: '⚡ 30분~1시간 (짧게)', value: 'under_1h' },
     { label: '☕ 1~2시간 (적당히)', value: '1_2h' },
     { label: '🎬 2~4시간 (넉넉히)', value: '2_4h' },
     { label: '🌙 4시간 이상 (하루종일)', value: 'over_4h' },
+  ];
+
+  const travelDurationOptions = [
+    { label: '🌤️ 당일치기', value: 'day' },
+    { label: '🌙 1박 2일', value: '1n2d' },
+    { label: '🛏️ 2박 3일', value: '2n3d' },
+    { label: '🧳 3박 4일 이상', value: '3n_over' },
   ];
 
   const companionOptions = [
@@ -168,10 +176,11 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
         lat,
         lng,
         companion,
-        availableTime,
         budget,
         transport,
-        ...(type === 'daily' ? { condition } : { travelStyle, includeStopovers }),
+        ...(type === 'daily'
+          ? { availableTime, condition }
+          : { travelDuration, travelStyle, includeStopovers }),
       };
 
       if (onSubmit) onSubmit(formData);
@@ -193,11 +202,16 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
   };
 
   const isTravel = type === 'travel';
-  
+
   const locationLabel = '2. 출발지';
   const locationPlaceholder = isTravel
     ? '예: 서울시 마포구, 대구 수성구 등'
     : '예: 서울시 마포구 연남동';
+
+  const timeLabel = isTravel ? '4. 여행 기간' : '4. 소요 가능 시간';
+  const timeOptions = isTravel ? travelDurationOptions : availableTimeOptions;
+  const timeValue = isTravel ? travelDuration : availableTime;
+  const setTimeValue = isTravel ? setTravelDuration : setAvailableTime;
 
   const budgetLabel = isTravel ? '5. 예산 범위 (하루 기준)' : '5. 예산 범위';
   const transportLabelNumber = '6.';
@@ -295,16 +309,16 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
             </div>
           </div>
 
-          {/* 4. 소요 가능 시간 (일상 / 여행 공통 표시) */}
+          {/* 4. 일상: 소요 가능 시간 / 여행: 여행 기간 */}
           <div className="flow-section">
-            <label className="flow-label">4. 소요 가능 시간</label>
+            <label className="flow-label">{timeLabel}</label>
             <div className="grid-group">
-              {availableTimeOptions.map((item) => (
+              {timeOptions.map((item) => (
                 <button
                   key={item.value}
                   type="button"
-                  className={availableTime === item.value ? 'btn active' : 'btn'}
-                  onClick={() => setAvailableTime(item.value)}
+                  className={timeValue === item.value ? 'btn active' : 'btn'}
+                  onClick={() => setTimeValue(item.value)}
                 >
                   {item.label}
                 </button>

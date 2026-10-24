@@ -139,3 +139,10 @@
   font-size: 11px;
   opacity: 0.5;
 }
+.ticket-todo { margin-bottom: 12px; }
+.ticket-todo ul {
+  margin: 4px 0 0;
+  padding-left: 18px;
+  font-size: 13px;
+  line-height: 1.6;
+}

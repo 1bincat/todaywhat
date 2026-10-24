@@ -12,6 +12,7 @@ export default function Ticket({
   travelTime,
   stayTime,
   duration, // 예전 티켓 호환용
+  activities = [],
   stopovers = [],
   departure,
   arrival,
@@ -51,6 +52,18 @@ export default function Ticket({
           {cost && <div><small>COST</small><b>{cost}</b></div>}
           {companion && <div><small>WITH</small><b>{companion}</b></div>}
         </div>
+
+        {/* 그곳에서 할 수 있는 것 */}
+        {activities.length > 0 && (
+          <div className="ticket-todo">
+            <small>{isTravel ? "THINGS TO DO" : "TO DO"}</small>
+            <ul>
+              {activities.map((a, i) => (
+                <li key={i}>{a}</li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {reason && <p className="ticket-reason">{reason}</p>}
       </div>
