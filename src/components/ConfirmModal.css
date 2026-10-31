@@ -1,0 +1,88 @@
+.cm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(39, 56, 79, 0.45);
+  animation: cm-fade 0.2s ease-out;
+}
+.cm-box {
+  width: min(86vw, 320px);
+  padding: 26px 22px 20px;
+  border-radius: 20px;
+  background: #fff;
+  color: #27384F;
+  text-align: center;
+  box-shadow: 0 12px 32px rgba(39, 56, 79, 0.25);
+  animation: cm-pop 0.3s cubic-bezier(0.2, 1.2, 0.3, 1);
+}
+.cm-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 14px;
+  border-radius: 50%;
+  background: #EEF6FB;
+  font-size: 26px;
+}
+.cm-title {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+.cm-msg {
+  margin: 0 0 20px;
+  font-size: 13px;
+  line-height: 1.6;
+  opacity: 0.7;
+  word-break: keep-all;
+}
+
+.cm-actions {
+  display: flex;
+  gap: 8px;
+}
+.cm-actions.col { flex-direction: column; }
+.cm-btn {
+  flex: 1;
+  padding: 12px 0;
+  border: 1.5px solid transparent;
+  border-radius: 12px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.cm-btn:disabled { opacity: 0.6; cursor: default; }
+.cm-btn.primary {
+  background: #3B6E9E;
+  color: #fff;
+}
+.cm-btn.secondary {
+  border-color: #3B6E9E;
+  background: transparent;
+  color: #3B6E9E;
+}
+.cm-btn.danger {
+  background: #C0504D;
+  color: #fff;
+}
+.cm-btn.text {
+  background: transparent;
+  color: #27384F;
+  font-weight: 500;
+  opacity: 0.65;
+}
+
+@keyframes cm-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes cm-pop {
+  from { opacity: 0; transform: scale(0.88); }
+  to { opacity: 1; transform: scale(1); }
+}

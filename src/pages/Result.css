@@ -188,3 +188,89 @@
   font-weight: 600;
   cursor: pointer;
 }
+/* 완료 버튼 */
+.btn-done {
+  margin-top: 12px;
+  padding: 10px 24px;
+  border: none;
+  background: transparent;
+  color: var(--main);
+  font-size: 14px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* 저장 완료 팝업 */
+.save-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(39, 56, 79, 0.45);
+  animation: save-fade 0.2s ease-out;
+}
+.save-modal {
+  width: min(86vw, 320px);
+  padding: 28px 22px 18px;
+  border-radius: 20px;
+  background: #fff;
+  color: #27384F;
+  text-align: center;
+  animation: save-pop 0.35s cubic-bezier(0.2, 1.2, 0.3, 1);
+}
+.save-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 30px;
+  font-weight: 700;
+}
+.save-modal h2 {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+.save-modal p {
+  margin: 0 0 18px;
+  font-size: 13px;
+  line-height: 1.5;
+  opacity: 0.7;
+  word-break: keep-all;
+}
+.save-actions {
+  display: flex;
+  gap: 8px;
+}
+.save-actions button {
+  flex: 1;
+  padding: 12px 0;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.save-close {
+  margin-top: 12px;
+  border: none;
+  background: transparent;
+  color: #27384F;
+  font-size: 13px;
+  opacity: 0.6;
+  cursor: pointer;
+}
+@keyframes save-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes save-pop {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}

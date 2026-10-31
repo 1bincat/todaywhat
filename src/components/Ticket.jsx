@@ -10,7 +10,8 @@ export default function Ticket({
   cost,
   companion,
   travelTime,
-  stayTime,
+  transport, // "🚌 대중교통" 같은 이동수단 표시
+  spareTime, // 일상: 여유시간 / 여행: 기간
   duration, // 예전 티켓 호환용
   activities = [],
   stopovers = [],
@@ -44,13 +45,28 @@ export default function Ticket({
         {path.length > 1 && <p className="ticket-path">{path.join(" → ")}</p>}
 
         <div className="ticket-meta">
-          {travelTime && <div><small>이동</small><b>{travelTime}</b></div>}
-          {stayTime && <div><small>머무는 시간</small><b>{stayTime}</b></div>}
-          {!travelTime && !stayTime && duration && (
+          {travelTime && (
+            <div>
+              <small>TRAVEL</small>
+              <b>{travelTime}</b>
+              {transport && <span className="ticket-sub">{transport}</span>}
+            </div>
+          )}
+          {spareTime && (
+            <div>
+              <small>{isTravel ? "DURATION" : "FREE TIME"}</small>
+              <b>{spareTime}</b>
+            </div>
+          )}
+          {!travelTime && !spareTime && duration && (
             <div><small>TIME</small><b>{duration}</b></div>
           )}
-          {cost && <div><small>COST</small><b>{cost}</b></div>}
-          {companion && <div><small>WITH</small><b>{companion}</b></div>}
+          {cost && (
+            <div><small>COST</small><b>{cost}</b></div>
+          )}
+          {companion && (
+            <div><small>WITH</small><b>{companion}</b></div>
+          )}
         </div>
 
         {/* 그곳에서 할 수 있는 것 */}

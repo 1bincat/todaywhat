@@ -25,7 +25,7 @@ export default function App() {
         <Route path="/taste-profile" element={<TasteProfile />} />
         <Route path="/conditions" element={<Conditions />} />
         <Route path="/result" element={<Result />} />
-        <Route path="/ticket/:id" element={<TicketDetail />} />
+        <Route path="/ticket/:id" element={<ProtectedRoute><TicketDetail /></ProtectedRoute>} /><Route path="/ticket/:id" element={<TicketDetail />} />
         <Route path="/result" element={<Result />} />
         <Route path="/around" element={<Around />} />
 
@@ -36,10 +36,7 @@ export default function App() {
             path="/journey"
             element={<ProtectedRoute><MyJourney /></ProtectedRoute>}
           />
-          <Route
-            path="/profile"
-            element={<ProtectedRoute><Profile /></ProtectedRoute>}
-          />
+          <Route path="/profile" element={<Profile />} />
           <Route
             path="/settings"
             element={<ProtectedRoute><Settings /></ProtectedRoute>}
