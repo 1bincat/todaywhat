@@ -125,7 +125,7 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
     if (!script) {
       script = document.createElement('script');
       script.id = scriptId;
-      script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_APP_KEY}&libraries=services&autoload=false`;
+      script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=957ecadf1f58433fcc1b049d88ebf46a&libraries=services&autoload=false`;
       script.async = true;
       document.head.appendChild(script);
     }
