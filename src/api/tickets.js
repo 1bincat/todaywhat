@@ -1,4 +1,4 @@
-const BASE = "http://localhost:4000";
+import { API_BASE as BASE } from "../config.js";
 const API = `${BASE}/api/tickets`;
 
 const authHeader = () => ({ Authorization: `Bearer ${localStorage.getItem("token")}` });

@@ -1,7 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { saveTaste, loadTaste } from "../api/taste";
 
-const API = "http://localhost:4000/api/auth";
+import { API_BASE } from "../config.js";
+const API = `${API_BASE}/api/auth`;
 const AuthContext = createContext(null);
 
 // 비로그인 때 한 테스트가 있으면 계정에 저장, 없으면 계정의 결과를 불러옴

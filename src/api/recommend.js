@@ -1,4 +1,5 @@
-const API = "http://localhost:4000/api/recommend";
+import { API_BASE } from "../config.js";
+const API = `${API_BASE}/api/recommend`;
 
 export async function fetchRecommend(payload) {
   const res = await fetch(API, {

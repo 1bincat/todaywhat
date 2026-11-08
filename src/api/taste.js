@@ -1,4 +1,5 @@
-const API = "http://localhost:4000/api/taste";
+import { API_BASE } from "../config.js";
+const API = `${API_BASE}/api/taste`;
 
 const headers = () => ({
   "Content-Type": "application/json",
