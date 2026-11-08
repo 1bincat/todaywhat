@@ -11,7 +11,10 @@ const router = express.Router();
 
 /* ---------------- 사진 업로드 ---------------- */
 
-const UPLOAD_DIR = fileURLToPath(new URL("../uploads/journeys/", import.meta.url));
+// 배포 시 UPLOAD_ROOT(영구 저장 볼륨 경로)를 지정하면 사진이 그 안에 저장돼요.
+const UPLOAD_DIR = process.env.UPLOAD_ROOT
+  ? path.join(process.env.UPLOAD_ROOT, "journeys")
+  : fileURLToPath(new URL("../uploads/journeys/", import.meta.url));
 fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 
 const EXT = { "image/jpeg": ".jpg", "image/png": ".png", "image/webp": ".webp", "image/gif": ".gif" };

@@ -11,11 +11,22 @@ import ticketsRouter from "./routes/tickets.js";
 
 const app = express();
 
-app.use(cors({ origin: "http://localhost:5173" }));
+// 웹(5173)과 앱(Capacitor) 접속을 허용해요. 추가 주소는 .env의 CORS_ORIGINS(쉼표로 구분)에 넣어요.
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost",
+  "https://localhost",
+  "capacitor://localhost",
+  ...(process.env.CORS_ORIGINS ? process.env.CORS_ORIGINS.split(",").map((o) => o.trim()) : []),
+];
+app.use(cors({ origin: allowedOrigins }));
 app.use(express.json());
 
 // 업로드한 사진 제공
-app.use("/uploads", express.static(fileURLToPath(new URL("./uploads", import.meta.url))));
+app.use(
+  "/uploads",
+  express.static(process.env.UPLOAD_ROOT || fileURLToPath(new URL("./uploads", import.meta.url)))
+);
 
 app.use("/api/auth", authRouter);
 app.use("/api/taste", tasteRouter);
