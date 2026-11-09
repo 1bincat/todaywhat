@@ -47,12 +47,27 @@
   gap: 8px;
 }
 .profile-chip {
-  padding: 8px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 6px;
   border: 1.5px solid var(--line);
   border-radius: 999px;
   background: var(--bg);
   font-size: 13px;
   color: var(--ink);
+}
+.profile-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .profile-actions { margin-top: auto; padding-top: 32px; }

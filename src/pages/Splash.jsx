@@ -19,7 +19,7 @@ export default function Splash() {
           <span>BOARDING PASS</span>
         </div>
         <div className="mini-ticket front">
-          <div className="band">🚆 TRAIN TICKET · TODAY</div>
+          <div className="band">TRAIN TICKET · TODAY</div>
           <div className="route">
             <div><small>FROM</small><b>MY HOME</b></div>
             <span>→</span>

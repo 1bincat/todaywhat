@@ -19,12 +19,12 @@ const COMPANION_LABEL = {
 
 // 티켓에 표시할 이동수단
 const TRANSPORT_LABEL = {
-  walk: "🚶 도보",
-  public: "🚌 대중교통",
-  taxi: "🚕 택시",
-  car: "🚗 자가용",
-  train: "🚆 기차",
-  airplane: "✈️ 비행기",
+  walk: "도보",
+  public: "대중교통",
+  taxi: "택시",
+  car: "자가용",
+  train: "기차",
+  airplane: "비행기",
 };
 
 // 티켓에 표시할 여유시간(일상) / 기간(여행)
@@ -269,7 +269,7 @@ export default function Result() {
   if (error) {
     return (
       <div className="result-page result-center">
-        <p>추천을 만들지 못했어요 😢</p>
+        <p>추천을 만들지 못했어요</p>
         <div className="actions">
           <button className="btn-sub" onClick={() => navigate(-1)}>돌아가기</button>
           <button className="btn-main" onClick={load}>다시 시도</button>
@@ -387,7 +387,6 @@ export default function Result() {
       {/* 로그인했지만 저장 없이 나갈 때 */}
       <ConfirmModal
         open={ask === "leave"}
-        icon="🎫"
         title="저장한 티켓이 없어요"
         message="저장하지 않고 나가면 이 추천 결과는 사라져요. 그래도 나갈까요?"
         onClose={() => setAsk(null)}

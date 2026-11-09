@@ -116,3 +116,12 @@
 }
 .home-recent-stars { color: #F2994A; }
 .home-recent-todo { color: #3B6E9E; }
+
+.home-card-band {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.home-recent-icon {
+  display: inline-flex;
+}

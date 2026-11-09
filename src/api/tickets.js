@@ -3,8 +3,20 @@ const API = `${BASE}/api/tickets`;
 
 const authHeader = () => ({ Authorization: `Bearer ${localStorage.getItem("token")}` });
 
+// 토큰이 만료/무효일 때: 저장된 로그인 정보를 지우고 로그인 화면으로 보냄
+function expireSession() {
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+  sessionStorage.removeItem("tasteAnswers");
+  window.location.assign("/login");
+}
+
 async function handle(res) {
   const data = await res.json().catch(() => ({}));
+  if (res.status === 401) {
+    expireSession();
+    throw new Error("로그인이 만료됐어요. 다시 로그인해주세요.");
+  }
   if (!res.ok) throw new Error(data.message || "요청에 실패했어요.");
   return data;
 }

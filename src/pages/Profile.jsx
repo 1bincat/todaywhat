@@ -1,9 +1,11 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Settings, Crosshair, Lock } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { buildProfile } from '../data/tasteResult';
 import { loadTaste } from '../api/taste';
 import { fetchTickets } from '../api/tickets';
+import TraitIcon from '../components/TraitIcon';
 import './Profile.css';
 
 function loadAnswers() {
@@ -20,7 +22,7 @@ export default function Profile() {
 
   const [answers, setAnswers] = useState(loadAnswers);
   const [tickets, setTickets] = useState(null);
-  
+
   // 지도가 들어갈 DOM 요소 참조 및 카카오맵/Bounds 객체 저장용 ref
   const mapRef = useRef(null);
   const kakaoMapRef = useRef(null);
@@ -80,7 +82,7 @@ export default function Profile() {
         ctx.bezierCurveTo(14.5, 38, 27, 22.8, 27, 13.5);
         ctx.bezierCurveTo(27, 6.6, 21.4, 1, 14.5, 1);
         ctx.closePath();
-        
+
         ctx.fillStyle = '#0F172A';
         ctx.fill();
         ctx.strokeStyle = '#FFFFFF';
@@ -233,14 +235,14 @@ export default function Profile() {
 
       validTickets.forEach((item) => {
         const ticketInfo = item.ticket || item;
-        const ticketData = typeof ticketInfo.ticket_data === 'string' 
-          ? JSON.parse(ticketInfo.ticket_data || '{}') 
+        const ticketData = typeof ticketInfo.ticket_data === 'string'
+          ? JSON.parse(ticketInfo.ticket_data || '{}')
           : (ticketInfo.ticket_data || {});
 
         const lat = ticketInfo.lat || ticketInfo.latitude || ticketData.lat;
         const lng = ticketInfo.lng || ticketInfo.longitude || ticketData.lng;
 
-        // 🔵 파란색 글씨 [장소명] - 오직 장소명 속성만 추출
+        // [장소명] - 오직 장소명 속성만 추출
         const placeTitle =
           ticketInfo.place ||
           ticketData.place ||
@@ -254,7 +256,7 @@ export default function Profile() {
           (ticketInfo.title && !ticketInfo.title.includes(' ') && ticketInfo.title.length < 10 ? ticketInfo.title : null) ||
           '장소';
 
-        // ⚫ 검은색 글씨 [지역명/주소]
+        // [지역명/주소]
         const placeAddress =
           ticketInfo.region ||
           ticketInfo.address ||
@@ -274,7 +276,7 @@ export default function Profile() {
 
           bounds.extend(position);
           hasValidPoint = true;
-        } 
+        }
         // 2. 좌표값은 없으나 주소/지역명이 존재하는 경우 주소 검색
         else if ((placeAddress || placeTitle) && geocoder) {
           const searchQuery = placeAddress || placeTitle;
@@ -335,7 +337,7 @@ export default function Profile() {
               onClick={() => navigate('/settings')}
               aria-label="계정 설정"
             >
-              ⚙
+              <Settings size={20} strokeWidth={1.8} />
             </button>
           </div>
         ) : (
@@ -353,7 +355,8 @@ export default function Profile() {
             <div className="pf-chips">
               {profile.traits.map((t) => (
                 <span key={t.id} className="pf-chip">
-                  {t.emoji} {t.label}
+                  <span className="pf-mark"><TraitIcon value={t.value} size={13} /></span>
+                  {t.label}
                 </span>
               ))}
             </div>
@@ -396,7 +399,7 @@ export default function Profile() {
                   gap: '4px'
                 }}
               >
-                🎯 전체 마커 한눈에 보기
+                <Crosshair size={14} strokeWidth={1.8} /> 전체 마커 한눈에 보기
               </button>
             </div>
             <div
@@ -413,14 +416,38 @@ export default function Profile() {
           </section>
         </>
       ) : (
-        <section className="pf-card pf-lock">
-          <small>MY JOURNEY · MY MAP</small>
-          <p className="pf-lock-title">🔒 로그인한 계정만 이용할 수 있어요</p>
-          <p className="pf-lock-sub">저장한 티켓과 여행 기록, 지도는 로그인하면 볼 수 있어요.</p>
-          <button className="pf-retake" onClick={() => navigate('/login')}>
-            로그인하기
-          </button>
-        </section>
+        <div className="pf-locked-wrap">
+          {/* 로그인했을 때와 같은 모양의 가짜 화면 (블러 처리, 실제 데이터 아님) */}
+          <div className="pf-locked-content" aria-hidden="true">
+            <section className="pf-card">
+              <small>MY JOURNEY</small>
+              <div className="pf-stats">
+                <div><b>0</b><span>저장한 티켓</span></div>
+                <div><b>0</b><span>다녀온 지역</span></div>
+              </div>
+              <button className="pf-retake" tabIndex={-1}>내 기록 보러 가기</button>
+            </section>
+
+            <section className="pf-card">
+              <small>MY MAP</small>
+              <div className="pf-map" style={{ width: '100%', height: '300px', marginTop: '8px' }} />
+            </section>
+          </div>
+
+          {/* 블러 위에 올라오는 안내 */}
+          <div className="pf-lock-overlay">
+            <div className="pf-lock-box">
+              <p className="pf-lock-title" style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                <Lock size={16} strokeWidth={1.8} />
+                로그인한 계정만 이용할 수 있어요
+              </p>
+              <p className="pf-lock-sub">저장한 티켓과 여행 기록, 지도는 로그인하면 볼 수 있어요.</p>
+              <button className="pf-retake" onClick={() => navigate('/login')}>
+                로그인하기
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

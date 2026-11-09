@@ -24,10 +24,35 @@ export function AuthProvider({ children }) {
   // 이미 로그인된 상태로 열었다면 취향 결과를 먼저 불러온 뒤 화면을 보여줌
   const [ready, setReady] = useState(!user);
 
-  useEffect(() => {
-    if (user) syncTaste().finally(() => setReady(true));
-  }, []);
-
+  // 변경
+useEffect(() => {
+  if (!user) return;
+  (async () => {
+    try {
+      const res = await fetch(`${API}/me`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
+      if (res.status === 401) {
+        // 토큰 만료/무효 → 화면의 로그인 상태도 해제
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        sessionStorage.removeItem("tasteAnswers");
+        setUser(null);
+        return;
+      }
+      if (res.ok) {
+        const data = await res.json();
+        localStorage.setItem("user", JSON.stringify(data.user));
+        setUser(data.user);
+      }
+      await syncTaste();
+    } catch {
+      // 서버가 꺼져 있는 등 네트워크 오류면 일단 그대로 둠
+    } finally {
+      setReady(true);
+    }
+  })();
+}, []);
   const saveSession = (data) => {
     localStorage.setItem("token", data.token);
     localStorage.setItem("user", JSON.stringify(data.user));

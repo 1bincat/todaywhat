@@ -20,24 +20,24 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
   if (!isOpen) return null;
 
   const availableTimeOptions = [
-    { label: '⚡ 30분~1시간 (짧게)', value: 'under_1h' },
-    { label: '☕ 1~2시간 (적당히)', value: '1_2h' },
-    { label: '🎬 2~4시간 (넉넉히)', value: '2_4h' },
-    { label: '🌙 4시간 이상 (하루종일)', value: 'over_4h' },
+    { label: '30분~1시간 (짧게)', value: 'under_1h' },
+    { label: '1~2시간 (적당히)', value: '1_2h' },
+    { label: '2~4시간 (넉넉히)', value: '2_4h' },
+    { label: '4시간 이상 (하루종일)', value: 'over_4h' },
   ];
 
   const travelDurationOptions = [
-    { label: '🌤️ 당일치기', value: 'day' },
-    { label: '🌙 1박 2일', value: '1n2d' },
-    { label: '🛏️ 2박 3일', value: '2n3d' },
-    { label: '🧳 3박 4일 이상', value: '3n_over' },
+    { label: '당일치기', value: 'day' },
+    { label: '1박 2일', value: '1n2d' },
+    { label: '2박 3일', value: '2n3d' },
+    { label: '3박 4일 이상', value: '3n_over' },
   ];
 
   const companionOptions = [
-    { label: '🙋 혼자', value: 'solo' },
-    { label: '👫 친구', value: 'friend' },
-    { label: '👩‍❤️‍👨 연인', value: 'couple' },
-    { label: '👨‍👩‍👧‍👦 가족', value: 'family' },
+    { label: '혼자', value: 'solo' },
+    { label: '친구', value: 'friend' },
+    { label: '연인', value: 'couple' },
+    { label: '가족', value: 'family' },
   ];
 
   const budgetOptions = {
@@ -57,31 +57,31 @@ const FlowStep = ({ isOpen, onClose, onSubmit }) => {
 
   const transportOptions = {
     daily: [
-      { label: '🚶 도보', value: 'walk' },
-      { label: '🚌 대중교통', value: 'public' },
-      { label: '🚕 택시', value: 'taxi' },
-      { label: '🚗 자가용', value: 'car' },
+      { label: '도보', value: 'walk' },
+      { label: '대중교통', value: 'public' },
+      { label: '택시', value: 'taxi' },
+      { label: '자가용', value: 'car' },
     ],
     travel: [
-      { label: '🚗 자가용', value: 'car' },
-      { label: '🚌 대중교통', value: 'public' },
-      { label: '🚆 기차', value: 'train' },
-      { label: '✈️ 비행기', value: 'airplane' },
+      { label: '자가용', value: 'car' },
+      { label: '대중교통', value: 'public' },
+      { label: '기차', value: 'train' },
+      { label: '비행기', value: 'airplane' },
     ],
   };
 
   const travelStyleOptions = [
-    { label: '🏛️ 명소 / 관광', value: 'sightseeing' },
-    { label: '🏄 체험 / 액티비티', value: 'activity' },
-    { label: '🌿 휴식 / 힐링', value: 'healing' },
-    { label: '🍕 식도락 / 맛집', value: 'food' },
+    { label: '명소 / 관광', value: 'sightseeing' },
+    { label: '체험 / 액티비티', value: 'activity' },
+    { label: '휴식 / 힐링', value: 'healing' },
+    { label: '식도락 / 맛집', value: 'food' },
   ];
 
   const conditionOptions = [
-    { label: '⚡ 상쾌함 (에너지 넘침)', value: 'fresh' },
-    { label: '🙂 보통', value: 'normal' },
-    { label: '🥱 피곤함 (여유롭게)', value: 'tired' },
-    { label: '🛋️ 휴식 필요 (최소 이동)', value: 'rest' },
+    { label: '상쾌함 (에너지 넘침)', value: 'fresh' },
+    { label: '보통', value: 'normal' },
+    { label: '피곤함 (여유롭게)', value: 'tired' },
+    { label: '휴식 필요 (최소 이동)', value: 'rest' },
   ];
 
   const handleTypeChange = (selectedType) => {
