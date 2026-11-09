@@ -74,4 +74,19 @@
   border-color: var(--ink);
   background: #fff;
 }
-.taste-emoji { font-size: 28px; }
+.taste-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.taste-card.selected .taste-badge {
+  background: var(--ink);
+  color: #fff;
+}

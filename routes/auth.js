@@ -121,4 +121,21 @@ router.delete("/account", auth, async (req, res) => {
   }
 });
 
+// 토큰이 유효한지 확인하고 최신 사용자 정보를 돌려줌
+router.get("/me", auth, async (req, res) => {
+  try {
+    const [rows] = await db.query(
+      "SELECT id, email, nickname FROM users WHERE id = ?",
+      [req.userId]
+    );
+    if (!rows[0]) {
+      return res.status(401).json({ message: "존재하지 않는 계정이에요." });
+    }
+    res.json({ user: rows[0] });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ message: "서버 오류" });
+  }
+});
+
 export default router;

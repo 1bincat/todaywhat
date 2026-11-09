@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { buildProfile } from '../data/tasteResult';
+import TraitIcon from '../components/TraitIcon';
 import './TasteProfile.css';
 
 function loadAnswers() {
@@ -32,7 +33,7 @@ export default function TasteProfile() {
       <p className="profile-intro">당신의 취향을 찾았어요</p>
 
       <div className="profile-card">
-        <div className="profile-band">🎫 MY TASTE CARD</div>
+        <div className="profile-band">MY TASTE CARD</div>
         <div className="profile-body">
           <small>NAME</small>
           <h1 className="profile-nickname">{nickname}</h1>
@@ -40,8 +41,9 @@ export default function TasteProfile() {
           <div className="profile-traits">
             {traits.map((t) => (
               <span key={t.id} className="profile-chip">
-                {t.emoji} {t.label}
-              </span>
+              <span className="profile-mark"><TraitIcon value={t.value} size={14} /></span>
+              {t.label}
+            </span>
             ))}
           </div>
         </div>

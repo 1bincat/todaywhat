@@ -119,3 +119,9 @@
   font-size: 12px;
   color: #3B6E9E;
 }
+
+.mj-todo {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}

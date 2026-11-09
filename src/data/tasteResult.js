@@ -1,21 +1,21 @@
-// 선택값 → 화면에 보여줄 이름
+// 선택값 → 화면에 보여줄 이름 (mark: 도장 배지에 들어갈 한 글자)
 const traitLabels = {
-  new: { emoji: '🧭', label: '새로운 곳 탐험' },
-  familiar: { emoji: '🛋️', label: '익숙한 곳 단골' },
-  deep: { emoji: '🔍', label: '한 곳을 깊게' },
-  wide: { emoji: '🎈', label: '여러 곳을 가볍게' },
-  together: { emoji: '👫', label: '함께가 좋아' },
-  alone: { emoji: '🎧', label: '혼자가 좋아' },
-  emotional: { emoji: '💗', label: '감성 우선' },
-  practical: { emoji: '✅', label: '실용 우선' },
-  indoor: { emoji: '🏠', label: '실내파' },
-  outdoor: { emoji: '🌳', label: '실외파' },
-  active: { emoji: '👟', label: '걸어 다니는 편' },
-  relax: { emoji: '☕', label: '느긋하게 머무는 편' },
-  lively: { emoji: '🎉', label: '활기찬 분위기' },
-  calm: { emoji: '🌙', label: '차분한 분위기' },
-  popular: { emoji: '⭐', label: '유명한 곳' },
-  hidden: { emoji: '🗝️', label: '숨은 곳' },
+  new: {label: '새로운 곳 탐험' },
+  familiar: { label: '익숙한 곳 단골' },
+  deep: {label: '한 곳을 깊게' },
+  wide: { label: '여러 곳을 가볍게' },
+  together: { label: '함께가 좋아' },
+  alone: {label: '혼자가 좋아' },
+  emotional: {label: '감성 우선' },
+  practical: {label: '실용 우선' },
+  indoor: { label: '실내파' },
+  outdoor: {label: '실외파' },
+  active: { label: '걸어 다니는 편' },
+  relax: { label: '느긋하게 머무는 편' },
+  lively: { label: '활기찬 분위기' },
+  calm: { label: '차분한 분위기' },
+  popular: { label: '유명한 곳' },
+  hidden: { label: '숨은 곳' },
 };
 
 export function buildProfile(answers) {
@@ -27,6 +27,6 @@ export function buildProfile(answers) {
 
   return {
     nickname: `${adj} ${mid} ${noun}`,
-    traits: answers.map((a) => ({ id: a.id, ...traitLabels[a.value] })),
+   traits: answers.map((a) => ({ id: a.id, value: a.value, ...traitLabels[a.value] })),
   };
 }

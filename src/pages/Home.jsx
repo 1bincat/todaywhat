@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Train } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { fetchTickets } from '../api/tickets';
 import FlowStep from '../components/FlowStep';
@@ -36,7 +37,9 @@ export default function Home() {
       </h1>
 
       <button className="home-card" onClick={() => setIsModalOpen(true)}>
-        <div className="home-card-band">🚆 TODAY TRIP</div>
+        <div className="home-card-band">
+          <Train size={15} strokeWidth={1.8} /> TODAY TRIP
+        </div>
         <div className="home-card-body">
           <h2>오늘 뭐하지?</h2>
           <p>
@@ -54,13 +57,12 @@ export default function Home() {
         )}
         {recent.length > 0 && (
           <div className="home-recent-list">
-            {recent.map(({ id, ticket, journey }) => (
+            {recent.map(({ id, ticket, journey, conditions }) => (
               <button
                 key={id}
                 className="home-recent-card"
                 onClick={() => navigate(`/ticket/${id}`)}
               >
-                <span className="home-recent-icon">{ticket.type === 'travel' ? '✈' : '🚆'}</span>
                 <b className="home-recent-place">{ticket.place}</b>
                 <span className="home-recent-region">{ticket.region}</span>
                 {journey?.rating ? (

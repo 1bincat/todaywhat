@@ -112,7 +112,7 @@
   position: absolute;
   width: 20px;
   height: 20px;
-  background: #EAF4FBe;
+  background: #EAF4FB;
   border-radius: 50%;
   margin-top: -11px;
 }
@@ -128,3 +128,25 @@
   font-size: 14px;
   cursor: pointer;
 }
+.login-email-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.login-email-row input {
+  flex: 1;
+  min-width: 0;
+  margin-bottom: 0;
+}
+.login-at { color: var(--sub); }
+.login-email-row select {
+  flex: 0 0 140px;
+  padding: 12px 8px;
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+}
+.login-domain-custom { margin-top: 8px; }

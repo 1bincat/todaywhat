@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Pencil } from "lucide-react";
 import { fetchTickets, photoSrc } from "../api/tickets";
+import TransportIcon from "../components/TransportIcon";
 import "./MyJourney.css";
 
 const stars = (n = 0) => "★".repeat(n) + "☆".repeat(5 - n);
@@ -74,7 +76,9 @@ export default function MyJourney() {
               {journey?.photoUrl ? (
                 <img src={photoSrc(journey.photoUrl)} alt="" />
               ) : (
-                <span>{ticket.type === "travel" ? "✈" : "🚆"}</span>
+                <span>
+                  <TransportIcon transport={ticket.transport} type={ticket.type} size={26} />
+                </span>
               )}
             </div>
             <div className="mj-body">
@@ -88,7 +92,9 @@ export default function MyJourney() {
                   {journey.review && <span className="mj-review">{journey.review}</span>}
                 </>
               ) : (
-                <em className="mj-todo">✏️ 기록 남기기</em>
+                <em className="mj-todo">
+                  <Pencil size={13} strokeWidth={1.8} /> 기록 남기기
+                </em>
               )}
             </div>
           </button>

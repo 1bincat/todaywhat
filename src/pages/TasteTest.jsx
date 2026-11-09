@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import tasteQuestions from '../data/tasteQuestions';
 import { saveTaste } from '../api/taste';
+import TraitIcon from '../components/TraitIcon';
 import './TasteTest.css';
 
 export default function TasteTest() {
@@ -46,13 +47,13 @@ export default function TasteTest() {
       <h1 className="taste-title">둘 중 더 나다운 쪽은?</h1>
 
       <div className="taste-options">
-        {[q.a, q.b].map((opt) => (
+        {[q.a, q.b].map((opt, i) => (
           <button
             key={opt.value}
             className={`taste-card ${answers[index]?.value === opt.value ? 'selected' : ''}`}
             onClick={() => choose(opt.value)}
           >
-            <span className="taste-emoji">{opt.emoji}</span>
+            <span className="taste-badge"><TraitIcon value={opt.value} size={18} /></span>
             <span className="taste-text">{opt.text}</span>
           </button>
         ))}
