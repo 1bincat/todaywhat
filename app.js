@@ -1,6 +1,8 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
+import fs from "fs";
+import path from "path";
 import { fileURLToPath } from "url";
 import authRouter from "./routes/auth.js";
 import tasteRouter from "./routes/taste.js";
@@ -34,6 +36,18 @@ app.use("/api/stopovers", stopoversRouter);
 app.use("/api/recommend", recommendRouter);
 app.use("/api/around", aroundRouter);
 app.use("/api/tickets", ticketsRouter);
+
+// 웹 화면(npm run build로 만든 dist)도 이 서버에서 같이 보여줘요.
+// 그래서 서버 주소로 들어가면 Cannot GET / 대신 앱 화면이 열려요.
+const distDir = fileURLToPath(new URL("./dist", import.meta.url));
+if (fs.existsSync(distDir)) {
+  app.use(express.static(distDir));
+  // 새로고침해도 화면이 열리도록, API/사진 주소가 아닌 모든 주소는 index.html로 보내요.
+  app.get("/{*splat}", (req, res, next) => {
+    if (req.path.startsWith("/api/") || req.path.startsWith("/uploads/")) return next();
+    res.sendFile(path.join(distDir, "index.html"));
+  });
+}
 
 app.listen(process.env.PORT, () => {
   console.log(`server on http://localhost:${process.env.PORT}`);
